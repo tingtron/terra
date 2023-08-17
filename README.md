@@ -10,14 +10,14 @@ The DoLoRes mode provides 40x48 near-square resolution and 16 colors. The data a
 
 ## Illustration of the algorithm using Posterizing
 
-The Blue step represents the Mean smoothing. The Posterize step represents division and dropping of the low bits.
+The **Blue** step represents the Mean smoothing. The **Posterize** step represents division and dropping of the low bits.
 
-| Blurr and Posterize steps  | Seed Image of random values |
+| Blurr and Posterize steps  | Resulting Image |
 | - | - |
-| ![Test](image/terra.png)  | ![Test](image/terra1.png)  |
-| Expanding blocks  | Generation 1 |
-| ![Test](image/terra2.png) | ![Test](image/terra3.png) |
+| ![Test](image/terra.png)  | ![Test](image/terra7.png)  |
+| Seed Image of random values | Expanding blocks |
+| ![Test](image/terra1.png) | ![Test](image/terra2.png) |
+| Generation 1 - Blur step | Generation 1 - Posterize step |
+| ![Test](image/terra3.png) | ![Test](image/terra4.png) |
 | Generation 2 | Generation 3 |
-| ![Test](image/terra4.png) | ![Test](image/terra5.png) |
-| Generation 4 | Generation 5 |
-| ![Test](image/terra6.png) | ![Test](image/terra7.png) |
+| ![Test](image/terra5.png) | ![Test](image/terra6.png) |
