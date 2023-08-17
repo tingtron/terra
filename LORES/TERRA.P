@@ -1,0 +1,85 @@
+program Terra;
+
+label 1;
+ 
+var i, j, k, x, y, u, v, px, py, r, q: Integer;
+    A: array [0..87,0..55] of Char; { 39+8=47 47+8=55 }
+    B: array [0..87,0..55] of Char;
+
+#i rndint.i
+#i dolores.i
+
+{ A:***111222333...NNN***
+Scr:   012345678...MMM <- 39
+}
+
+begin
+  Write('Terra forming - Press Enter continue... ');
+  ReadLn;
+  Seed(0);
+  Dolores2;
+  for y := 0 to 54 div 3 - 1 do begin
+    for x := 0 to 86 div 3 - 1 do begin
+      r := Rnd;
+      q := abs(r mod 256);
+      if (x>0) and (y>0) then  
+        Color(q div 16);
+      for j := 0 to 2 do begin
+        for i := 0 to 2 do begin
+          u := x*3 + i; v:= y*3+j;
+          A[u,v] := Chr(q);
+          px := u - 3; py := v - 3; 
+          if (px>=0) and (px<80) and (py>=0) and (py<48) then
+            Plot(px, py);
+        end;
+      end;
+    end;
+    if KeyPressed then goto 1;
+  end;
+ for i := 1 to 10 do begin
+  k := 1 - i mod 3 mod 2;
+  for y := 0 to 55-3 do begin
+    for x := 0 to 87-3 do begin
+      r := Ord(A[x,y])+Ord(A[x+1,y])+Ord(A[x+2,y])+Ord(A[x+3,y]);
+      q := r div 4;
+      B[x+k,y+k] := Chr(q);
+    end;
+    if KeyPressed then goto 1;
+  end;
+  for y := 0 to 55-3 do begin
+    for x := 0 to 87-3 do begin
+      r := Ord(B[x,y])+Ord(B[x,y+1])+Ord(B[x,y+2])+Ord(B[x,y+3]);
+      q := r div 4;
+      A[x+k,y+k] := Chr(q);
+      px := x - 3; py := y - 3; 
+      if (px>=0) and (px<80) and (py>=0) and (py<48) then begin
+        Color(q div 16);
+        Plot(px,py);
+      end;
+    end;
+    if KeyPressed then goto 1;
+  end;
+ end;
+{    Val  Shown      Shown    mod   div k
+   14323  | 14|323   |143|23   1|432|3
+    2436  |  2|436   | 24|36    |243|6
+  265345  |265|345  2|653|45  26|534|5
+     127  |   |127   |  1|27    | 12|7
+   43245  | 43|245   |432|45   4|324|5
+}
+ k := 16; { 8 4 2 1 }
+ for i := 0 to 10000 do begin
+  if i mod 8 < 4 then k := k div 2 else k := k * 2;
+  for y := 0 to 47 do begin
+    for x := 0 to 79 do begin
+      r := Ord(A[x+3,y+3]);
+      q := r div k;
+      Color(q mod 16);
+      Plot(x,y);
+    end;
+    if KeyPressed then goto 1;
+  end;
+ end;
+  1: WaitKey; { Eat it! }
+  TextMode
+end.
